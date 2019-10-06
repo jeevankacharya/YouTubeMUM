@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/youtube
+    username: jeevan
+    password: jeevan
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
