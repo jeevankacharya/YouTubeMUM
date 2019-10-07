@@ -1,108 +1,57 @@
-buildscript {
-    ext {
-        springBootVersion = '2.0.4.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
 plugins {
     id 'java'
-    id 'com.gradle.build-scan' version '2.0.2'
-    id 'org.springframework.boot' version '2.1.7.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    //id 'org.hibernate.build.gradle.maven.LocalMavenRepoSniffer'
-//    id 'spring-boot'
 }
-//allprojects {
-//    apply plugin: 'spring-boot'
-//    apply plugin: 'org.hibernate.build.gradle.maven.LocalMavenRepoSniffer'
-//
-//}
-group 'YouTube'
+
+group 'mum.YouTube'
 version '1.0-SNAPSHOT'
-sourceCompatibility = 1.8
 
-buildScan {
-    // always accept the terms of service
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
 
-    // always publish a build scan
-    publishAlways()
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+
+
+war {
+    baseName = 'springboot'
+    version = '0.0.1-SNAPSHOT'
 }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {
-        url "http://www.dcm4che.org/maven2/"
-    }
+    maven { url "http://repo.spring.io/libs-milestone" }
 }
+repositories {
+    jcenter()
+}
+configurations {
+    providedRuntime
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation 'org.springframework.boot:spring-boot-dependencies:2.0.5.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.2.RELEASE'
+// https://mvnrepository.com/artifact/org.javassist/javassist
+    compile group: 'org.javassist', name: 'javassist', version: '3.24.1-GA'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile("javax.servlet:jstl:1.2")
+// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
 
-    compile 'mysql:mysql-connector-java'
-    compileOnly('org.projectlombok:lombok')
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    runtimeOnly 'com.h2database:h2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.2.RELEASE'
 
-    implementation 'org.hibernate:hibernate-core:3.6.7.Final'
-    implementation 'org.hibernate:hibernate-commons-annotations:3.2.0.Final'
-    implementation 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.7.RELEASE'
 
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.33'
 
-    components {
-        withModule('org.springframework:spring-beans') {
-            allVariants {
-                withDependencyConstraints {
-                    // Need to patch constraints because snakeyaml is an optional dependency
-                    it.findAll { it.name == 'snakeyaml' }.each { it.version { strictly '1.19' } }
-                }
-            }
-        }
-    }
+    //added
+    compileOnly "org.projectlombok:lombok:1.16.12"
 
-//    compile('org.springframework.boot:spring-boot-starter-freemarker')
-//    compile("org.springframework.boot:spring-boot-starter-web")
-//
-//    compile 'org.springframework:spring-aop:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-aspects:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-beans:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-context:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-context-support:4.1.0.RELEASE'
-//
-//    compile 'org.springframework:spring-expression:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-instrument:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-instrument-tomcat:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-core:4.1.0.RELEASE'
-////    compile 'org.springframework:spring-jdbc:4.1.0.RELEASE'
-//    //compile 'org.springframework:spring-orm:4.1.0.RELEASE'
-//    //compile 'org.springframework:spring-tx:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-web:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-webmvc:4.1.0.RELEASE'
-//    compile 'org.springframework:spring-webmvc-portlet:4.1.0.RELEASE'
-//
-//    compile 'org.hibernate:hibernate-core:4.3.6.Final'
-//    compile 'javax.servlet:javax.servlet-api:3.1.0'
-//    compile 'org.javassist:javassist:3.15.0-GA'
-//    compile 'mysql:mysql-connector-java:5.1.31'
-//    compile 'commons-dbcp:commons-dbcp:1.4'
-//    compile 'org.springframework.amqp:spring-rabbit:1.5.1.RELEASE'
-//    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
-//    compile 'org.dcm4che:dcm4che-core:3.3.7'
-//    //compile("org.springframework.boot:spring-boot-starter-security")
-//    testCompile("junit:junit")
-//
-//
-//    compile group: 'org.springframework', name: 'spring-webmvc', version: '3.1.1.RELEASE'
+    //apache jdbc datasource
+    compile 'commons-dbcp:commons-dbcp:1.4'
+
 
 }
