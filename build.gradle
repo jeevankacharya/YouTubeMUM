@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.andersen.maks'
+group 'mum.YouTube'
 version '1.0-SNAPSHOT'
 
 
@@ -47,7 +47,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
     compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.33'
 
-    //added by mine
+    //added
     compileOnly "org.projectlombok:lombok:1.16.12"
 
 }
