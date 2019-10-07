@@ -17,13 +17,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/MainApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/MainController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/config/AppConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/constants/AppConstant.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/Playlist.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/Video.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/MainApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/Playlist.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/Playlist.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/Video.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/mumyoutube/model/Video.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mumyoutube/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mumyoutube/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mumyoutube/config/HibernateConfiguration.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mumyoutube/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mumyoutube/model/User.java" afterDir="false" />
@@ -162,7 +159,7 @@
       <workItem from="1570390340782" duration="7607000" />
       <workItem from="1570398464750" duration="1871000" />
       <workItem from="1570400623194" duration="3073000" />
-      <workItem from="1570410751634" duration="2350000" />
+      <workItem from="1570410751634" duration="2647000" />
     </task>
     <servers />
   </component>
