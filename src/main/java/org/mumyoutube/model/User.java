@@ -1,5 +1,6 @@
 package org.mumyoutube.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,25 +8,37 @@ import org.mumyoutube.constants.AppConstant;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
+
 @Entity
 @Table(name = AppConstant.Tb_User)
-
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-    @NotBlank
+
+    @NotNull
     private String username;
-    @NotBlank
+
+    @NotNull
     private String email;
-    @NotBlank
+
+    @NotNull
     private String password;
+
+    @OneToOne(mappedBy = "user")
+    private Channel channel;
+
+    @OneToMany(mappedBy = "user")
+    private List<Video> videos = new ArrayList<>();
+/*
+    @OneToMany(mappedBy = "user")
+    private List<Subscriber> subscribers;*/
 
     public String getUsername() {
         return username;

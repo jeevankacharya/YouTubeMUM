@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.tomcat.embed:tomcat-embed-jasper:8.5.33">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-jasper/8.5.33/e6a6d0b5a5904b5b6cab0adf2c18205d578fda3e/tomcat-embed-jasper-8.5.33.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-jasper/8.5.33/c7e667905174422714b34cdf948ced74e376bf6d/tomcat-embed-jasper-8.5.33-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

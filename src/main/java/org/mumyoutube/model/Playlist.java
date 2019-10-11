@@ -6,11 +6,9 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.mumyoutube.constants.AppConstant;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,7 +25,18 @@ public class Playlist {
     private String playlistName;
 
     @NonNull
-    private  int userId;
+    private int userId;
+
+    @OneToMany
+    private List<Video> video;
+
+    public Playlist(@NotBlank String playlistName) {
+        this.playlistName = playlistName;
+    }
+
+    public List<Video> getVideo() {
+        return video;
+    }
 
     public String getPlaylistName() {
         return playlistName;
