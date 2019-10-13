@@ -15,17 +15,11 @@
                 <td><form:input path="playlistName"/></td>
             </tr>
             <tr>
-                <td><form:label path="userId">User Id</form:label></td>
-                <td><form:input path="userId"/></td>
-            </tr>
-            <tr>
-                <td><form:label path="videoId">Video Id</form:label></td>
-                <td><form:input path="videoId"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit"/></td>
+                <td><input type="submit" value="Create"/></td>
             </tr>
         </table>
     </form:form>
+
+
 </body>
 </html>

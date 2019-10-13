@@ -4,6 +4,7 @@ package org.mumyoutube.controller;
 import org.mumyoutube.model.Video;
 import org.mumyoutube.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -16,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +55,6 @@ public class VideoplayListController {
         for (Video v : vids) {
             exactPaths.add(v.getVideoPath());
 
-
             MP4_FILE = new File(v.getVideoPath());
             vidP.add(MP4_FILE.getName());
 
@@ -87,7 +85,7 @@ public class VideoplayListController {
     //@GetMapping("/{videoName}")
     //@NotNull
     @GetMapping( value = "/{Paths}", produces = "video/mp4")
-    public void video(@PathVariable String Paths, HttpServletRequest request,
+    public String video(@PathVariable String Paths, HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
         MP4_FILE = new File(uploadingDir+"/"+Paths);
@@ -100,7 +98,7 @@ public class VideoplayListController {
 //        ModelAndView model = new ModelAndView();
 //        model.addObject("path",  handler.getResource(request));
 //
-//        return model;
+        return "video";
     }
 
 

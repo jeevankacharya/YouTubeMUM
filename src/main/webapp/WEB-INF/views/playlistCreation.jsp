@@ -3,7 +3,7 @@
 
 <html>
 <body>
-<h1>Playlist Creation</h1>
+<h1>Create Playlist</h1>
 
 ${message}
 
