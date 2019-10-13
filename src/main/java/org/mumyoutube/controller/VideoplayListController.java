@@ -1,78 +1,119 @@
 package org.mumyoutube.controller;
 
 
-import org.hibernate.engine.internal.Collections;
 import org.mumyoutube.model.Video;
 import org.mumyoutube.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.UrlResource;
-import org.springframework.core.io.support.ResourceRegion;
-import org.springframework.http.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
-import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.mumyoutube.controller.VideoUploadController.uploadingDir;
 
 
-@Controller
+@RestController
 @RequestMapping
 
 public class VideoplayListController {
 
-    VideoService videoService;
-
     @Autowired
+    private MyResourceHttpRequestHandler handler;
+    @Autowired
+    VideoService videoService;
+    static ModelAndView mv = new ModelAndView();
+
+
+    File MP4_FILE;
+
     public VideoplayListController(VideoService videoService) {
         super();
         this.videoService = videoService;
     }
 
+
     @GetMapping(value = "/playVideo", produces = "video/mp4")
-    @ResponseBody
-    public ModelAndView videoSource( ) throws IOException {
-        ModelAndView mv = new ModelAndView();
+    @ResponseBody    public ModelAndView videoSource(HttpServletRequest request,
+                                    HttpServletResponse response)
+            throws ServletException, IOException {
+        List<String> exactPaths = new ArrayList<>();
+        List<String> vidP = new ArrayList<>();
 
-        //List<Video> video = videoService.getAllVideo();
-       // Path videosPath = Paths.get(uploadingDir);
+        List<Video> vids = videoService.getAllVideo();
 
-        List v = Files.list(Paths.get(uploadingDir)).collect(Collectors.toList());
-        List vPath = new ArrayList();
-        for (Object s:v ) {
-            vPath.add(Paths.get(s.toString()).getFileName());
+        for (Video v : vids) {
+            exactPaths.add(v.getVideoPath());
+
+
+            MP4_FILE = new File(v.getVideoPath());
+            vidP.add(MP4_FILE.getName());
+
+//            request.setAttribute(MyResourceHttpRequestHandler.ATTR_FILE, MP4_FILE);
+//            handler.handleRequest(request, response);
+//            mv.addObject(handler);
         }
-        mv.addObject("videos",vPath);
+        //List<Video> viddleeo = videoService.getAllVideo();
 
-        return  mv;
+//        List v = Files.list(Paths.get(uploadingDir)).collect(Collectors.toList());
+//        List vPath = new ArrayList();
+//        for (Object s : v) {
+//            vPath.add(Paths.get(s.toString()).getFileName());
+//        }
+        mv.addObject("Paths", exactPaths);
+
+        mv.addObject("videos", vidP);
+
+        return mv;
     }
 
-    @GetMapping( value = "/{videoName}", produces = "video/mp4")
-    @NotNull
-    public String video(@PathVariable String videoName) {
-        Path fullPath = Path.of  (uploadingDir +"/"+ videoName);
-        ModelAndView model = new ModelAndView();
-        model.addObject("path", fullPath);
+//    @GetMapping(path = "/plain", produces = "video/mp4")
+//    public FileSystemResource plain() {
+//
+//        return new FileSystemResource(MP4_FILE);
+//    }
 
-        return "video";
+    //@GetMapping("/{videoName}")
+    //@NotNull
+    @GetMapping( value = "/{Paths}", produces = "video/mp4")
+    public void video(@PathVariable String Paths, HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
+        MP4_FILE = new File(uploadingDir+"/"+Paths);
+        request.setAttribute(MyResourceHttpRequestHandler.ATTR_FILE, MP4_FILE);
+        handler.handleRequest(request, response);
+
+//
+
+//        Path fullPath = Path.of(uploadingDir + "/" + videoName);
+//        ModelAndView model = new ModelAndView();
+//        model.addObject("path",  handler.getResource(request));
+//
+//        return model;
+    }
+
+
+    @Component
+    final static class MyResourceHttpRequestHandler extends ResourceHttpRequestHandler {
+
+        private final static String ATTR_FILE = MyResourceHttpRequestHandler.class.getName() + ".file";
+
+        @Override
+        protected Resource getResource(HttpServletRequest request) throws IOException {
+
+            final File file = (File) request.getAttribute(ATTR_FILE);
+            return new FileSystemResource(file);
+        }
     }
 }

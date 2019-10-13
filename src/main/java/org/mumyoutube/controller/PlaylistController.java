@@ -54,7 +54,7 @@ public class PlaylistController {
     }
 
     @RequestMapping(value = "/addNewPlaylist", method = RequestMethod.POST)
-    public ModelAndView saveNewDeveloper(@ModelAttribute Playlist playlist, BindingResult result){
+    public ModelAndView saveNewPlaylist(@ModelAttribute Playlist playlist, BindingResult result){
         ModelAndView mv = new ModelAndView("playlistCreation");
         mv.addObject("message","Something went wrong. Please try again later.");
 

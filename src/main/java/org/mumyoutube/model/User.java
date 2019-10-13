@@ -21,18 +21,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
     @NotBlank
-    private String username;
+    private String userName;
     @NotBlank
     private String email;
     @NotBlank
     private String password;
 
-    public String getUsername() {
-        return username;
-    }
+    @NotBlank
+    private String role;
+
+    //***************************************
+
+
+
+    //***************************************
+
+
+    public String getUserName() {   return userName;   }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
     public String getEmail() {
@@ -57,6 +65,14 @@ public class User {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 }
 

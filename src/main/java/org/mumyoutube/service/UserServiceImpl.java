@@ -30,6 +30,8 @@ public class UserServiceImpl  implements UserService {
         return repository.findById(userId).get();
     }
 
+    public User getUserByUserName(String userName) {   return repository.findByUserName(userName); }
+
     @Override
     public boolean addUser(User user) {
         try{
