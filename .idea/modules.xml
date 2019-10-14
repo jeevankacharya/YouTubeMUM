@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YouTube.main.iml" filepath="$PROJECT_DIR$/.idea/modules/YouTube.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YouTube.test.iml" filepath="$PROJECT_DIR$/.idea/modules/YouTube.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YouTubeMUM.iml" filepath="$PROJECT_DIR$/.idea/modules/YouTubeMUM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YouTubeMUM.main.iml" filepath="$PROJECT_DIR$/.idea/modules/YouTubeMUM.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YouTubeMUM.test.iml" filepath="$PROJECT_DIR$/.idea/modules/YouTubeMUM.test.iml" />
     </modules>
   </component>
 </project>

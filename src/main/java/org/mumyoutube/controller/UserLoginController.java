@@ -1,6 +1,9 @@
 package org.mumyoutube.controller;
 
 import org.mumyoutube.model.User;
+import org.mumyoutube.model.Video;
+import org.mumyoutube.service.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -9,15 +12,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
 public class UserLoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String handleRequest(HttpServletRequest request, Model model) {
-
 
         Authentication auth = SecurityContextHolder.getContext()
                 .getAuthentication();
@@ -28,20 +34,35 @@ public class UserLoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String submit(Model model,  @ModelAttribute User loginBean, BindingResult result) {
-        if (loginBean != null && loginBean.getUserName() != null
-                & loginBean.getPassword() != null) {
-            if (loginBean.getUserName().equals("chandra")
-                    && loginBean.getPassword().equals("chandra123")) {
-                model.addAttribute("msg", loginBean.getUserName());
-                return "success";
-            } else {
-                model.addAttribute("error", "Invalid Details");
-                return "login";
-            }
-        } else {
-            model.addAttribute("error", "Please enter Details");
-            return "login";
+    public String submit(Model model, @ModelAttribute User loginBean, BindingResult result, HttpServletRequest servletRequest) {
+        servletRequest.setAttribute("mode", "playVideo");
+        //ModelAndView mv = new ModelAndView();
+//        mv.setViewName("dashboard");
+        //data();
+        return "playVideo";
+    }
+
+    @Autowired
+    VideoService videoService;
+
+    public void data() {
+        List<String> exactPaths = new ArrayList<>();
+        List<String> vidP = new ArrayList<>();
+
+        List<Video> vids = videoService.getAllVideo();
+
+
+        for (Video v : vids) {
+            exactPaths.add(v.getVideoPath());
+
+//            MP4_FILE = ;
+            vidP.add(new File(v.getVideoPath()).getName());
+
         }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("Paths", exactPaths);
+
+        modelAndView.addObject("videos", vidP);
+
     }
 }

@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 @Controller
 public class VideoUploadController {
 
-    public static final String uploadingDir = System.getProperty("user.dir") + "/uploads";
+    public static final String uploadingDir = System.getProperty("user.dir") + "/uploads/";
     private VideoService videoService;
 
     @Autowired

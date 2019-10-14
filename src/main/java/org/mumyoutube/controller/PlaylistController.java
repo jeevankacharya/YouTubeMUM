@@ -48,7 +48,7 @@ public class PlaylistController {
     @RequestMapping(value = "/addNewPlaylist", method = RequestMethod.GET)
     public ModelAndView displayNewPlaylistForm(){
         ModelAndView mv = new ModelAndView("addNewPlaylist");
-        mv.addObject("headerMessage", "Add Playlist Details");
+        mv.addObject("headerMessage");
         mv.addObject("playlist", new Playlist());
         return mv;
     }

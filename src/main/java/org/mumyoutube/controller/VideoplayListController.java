@@ -43,7 +43,7 @@ public class VideoplayListController {
     }
 
 
-    @GetMapping(value = "/playVideo", produces = "video/mp4")
+    @GetMapping(value = "/playVideo"/*, produces = "video/mp4"*/)
     @ResponseBody    public ModelAndView videoSource(HttpServletRequest request,
                                     HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,6 +51,7 @@ public class VideoplayListController {
         List<String> vidP = new ArrayList<>();
 
         List<Video> vids = videoService.getAllVideo();
+
 
         for (Video v : vids) {
             exactPaths.add(v.getVideoPath());

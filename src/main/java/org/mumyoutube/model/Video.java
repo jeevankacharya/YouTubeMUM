@@ -27,8 +27,8 @@ public class Video {
     private long userId;
     @NotBlank
     private String videoPath;
-    private Long no_dislikes;
-    private Long no_likes;
+    private Long no_dislikes = 0l;
+    private Long no_likes = 0l;
     private String comment;
     private String videoDescription;
 
