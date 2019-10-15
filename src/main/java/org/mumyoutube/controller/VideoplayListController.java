@@ -85,7 +85,7 @@ public class VideoplayListController {
 
     //@GetMapping("/{videoName}")
     //@NotNull
-    @GetMapping( value = "/{Paths}", produces = "video/mp4")
+    //@GetMapping( value = "/{Paths}", produces = "video/mp4")
     public String video(@PathVariable String Paths, HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {

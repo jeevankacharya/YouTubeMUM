@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @GetMapping(value = "/")
+    //@GetMapping(value = "/")
     public String getString() {
        return "/playVideo";
     }
