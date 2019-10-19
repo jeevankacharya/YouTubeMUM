@@ -1,8 +1,11 @@
 package org.mumyoutube.controller;
 
+import org.mumyoutube.model.Playlist;
 import org.mumyoutube.model.User;
 import org.mumyoutube.model.Video;
+import org.mumyoutube.service.UserServiceImpl;
 import org.mumyoutube.service.VideoService;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,11 @@ import java.util.List;
 
 @Controller
 public class UserLoginController {
+
+    @Autowired
+    UserServiceImpl userService;
+
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String handleRequest(HttpServletRequest request, Model model) {
 
@@ -35,12 +44,21 @@ public class UserLoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String submit(Model model, @ModelAttribute User loginBean, BindingResult result, HttpServletRequest servletRequest) {
+
         servletRequest.setAttribute("mode", "playVideo");
         //ModelAndView mv = new ModelAndView();
 //        mv.setViewName("dashboard");
         //data();
         return "playVideo";
     }
+
+    @RequestMapping(value = "/charts", method = RequestMethod.GET)
+    public ModelAndView displayNewPlaylistForm() {
+        ModelAndView mv = new ModelAndView("charts");
+        mv.addObject("headerMessage");
+        return mv;
+    }
+
 
     @Autowired
     VideoService videoService;

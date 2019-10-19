@@ -1,6 +1,7 @@
 package org.mumyoutube.controller;
 
 
+import javafx.beans.binding.IntegerBinding;
 import org.mumyoutube.model.Video;
 import org.mumyoutube.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.mumyoutube.controller.VideoUploadController.uploadingDir;
 
@@ -42,19 +44,27 @@ public class VideoplayListController {
         this.videoService = videoService;
     }
 
+    List<Long> videoIds;
+    List<String> exactPaths;
+    List<String> newVideoPath = new ArrayList<>();
 
     @GetMapping(value = "/playVideo"/*, produces = "video/mp4"*/)
-    @ResponseBody    public ModelAndView videoSource(HttpServletRequest request,
+    @ResponseBody
+    public ModelAndView videoSource(HttpServletRequest request,
                                     HttpServletResponse response)
             throws ServletException, IOException {
-        List<String> exactPaths = new ArrayList<>();
+        exactPaths = new ArrayList<>();
         List<String> vidP = new ArrayList<>();
+        videoIds = new ArrayList<>();
 
         List<Video> vids = videoService.getAllVideo();
 
 
         for (Video v : vids) {
             exactPaths.add(v.getVideoPath());
+            videoIds.add(v.getVideoId());
+
+            newVideoPath.add(v.getVideoPath().split(Pattern.quote(File.separator))[7]);
 
             MP4_FILE = new File(v.getVideoPath());
             vidP.add(MP4_FILE.getName());
@@ -71,6 +81,7 @@ public class VideoplayListController {
 //            vPath.add(Paths.get(s.toString()).getFileName());
 //        }
         mv.addObject("Paths", exactPaths);
+        mv.addObject("VideoIds", videoIds);
 
         mv.addObject("videos", vidP);
 
@@ -85,21 +96,30 @@ public class VideoplayListController {
 
     //@GetMapping("/{videoName}")
     //@NotNull
-    //@GetMapping( value = "/{Paths}", produces = "video/mp4")
-    public String video(@PathVariable String Paths, HttpServletRequest request,
-                          HttpServletResponse response)
+    @GetMapping(value = "/{Paths}", produces = "video/mp4")
+    public ModelAndView video(@PathVariable String Paths, HttpServletRequest request,
+                              HttpServletResponse response)
             throws ServletException, IOException {
-        MP4_FILE = new File(uploadingDir+"/"+Paths);
+//        String id =
+        int id = 0;
+        if (newVideoPath.contains(Paths)) {
+            int pos = newVideoPath.indexOf(Paths);
+            id = Math.toIntExact(videoIds.get(pos));
+        }else{
+            System.out.println("Not found");
+        }
+        MP4_FILE = new File(uploadingDir + "/" + Paths);
         request.setAttribute(MyResourceHttpRequestHandler.ATTR_FILE, MP4_FILE);
         handler.handleRequest(request, response);
 
-//
 
 //        Path fullPath = Path.of(uploadingDir + "/" + videoName);
 //        ModelAndView model = new ModelAndView();
 //        model.addObject("path",  handler.getResource(request));
 //
-        return "video";
+        ModelAndView modelAndView = new ModelAndView("video");
+        modelAndView.addObject(id);
+        return new ModelAndView("video");
     }
 
 
@@ -115,4 +135,10 @@ public class VideoplayListController {
             return new FileSystemResource(file);
         }
     }
+
+
+    /*@RequestMapping(value = "/video", method = RequestMethod.GET)
+    public String playVideo() {
+        return "video";
+    }*/
 }

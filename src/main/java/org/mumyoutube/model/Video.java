@@ -6,12 +6,10 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.mumyoutube.constants.AppConstant;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.nio.file.Path;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,16 +20,20 @@ public class Video {
 
     @Id
     @GeneratedValue
-    private Long videoId;
+    private Long videoId ;
     @NonNull
     private long userId;
     @NotBlank
     private String videoPath;
     private Long no_dislikes = 0l;
     private Long no_likes = 0l;
-    private String comment;
-    private String videoDescription;
+    private String comment = "";
+    private String videoDescription = "";
 
+
+    @JoinTable
+    @OneToMany
+    private List<Comment> comments;
 
     public long getUserId() {
         return userId;

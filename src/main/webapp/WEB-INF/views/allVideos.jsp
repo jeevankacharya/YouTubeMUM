@@ -4,21 +4,23 @@
 <head>
     <link href="css/style.css"   rel="stylesheet">
     <div th:replace="/header :: header-css"/>
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:#EEEEEE;">
 <script src="js/format.js"></script>
 <div class="tab">
-    <button style="float:left;" class="tablinks" onclick="location.reload();location.href='playVideo'">MumTube</button>
+    <button style="float:left;" class="tablinks" onclick="location.reload();location.href='playVideo'"><b>MumTube</b></button>
     <button style="float:right;" class="tablinks" onclick="location.reload();location.href='login'">SignOut</button>
-    <button style="float:right;" class="tablinks" onclick="window.open('upload')">Upload Video</button>
-    <button style="float:right;" class="tablinks" onclick="window.open('allVideos')">My Playlists</button>
-    <button style="float:right;" class="tablinks" onclick="window.open('addNewPlaylist')">Create Playlist</button>
-
+    <button style="float:right;" class="tablinks" onclick="location.reload();location.href='upload'">Upload Video</button>
+    <!--button-- style="float:right;" class="tablinks" onclick="window.open('allVideos')">My Playlists</button-->
+    <button style="float:right;" class="tablinks" onclick="location.reload();location.href='allVideos'">My Playlists</button>
+    <button style="float:right;" class="tablinks" onclick="location.reload();location.href='addNewPlaylist'">Create Playlist</button>
+    <button style="float:right;" class="tablinks" onclick="location.reload();location.href='charts'">Charts</button>
 </div>
 <br>
 <br>
 <h3>List of all Videos and Playlist videos</h3>
-<table>
+<tr>
     <tr>
         <td>
 
@@ -45,18 +47,17 @@
         </td>
         <td>
             <!--loop through all the playlists available-->
+
             <h3>Playlist videos</h3>
+
+            <table border="1px" cellpadding="0" cellspacing="0" id="styleTable" >
             <c:forEach var="playlist" items="${playlistList}">
 
-                    <table border="1px" cellpadding="0" cellspacing="0" >
-
-                            <thead>
                                     <tr>
-                                        <th>playlist Id = ${playlist.userId}</th>
-                                        <th>Playlist Name  = ${playlist.playlistName}</th>
+                                        <td>playlist Id = ${playlist.userId}</td>
+                                        <td>Playlist Name  = ${playlist.playlistName}</td>
                                     </tr>
-                            </thead>
-                            <tbody>
+
                                     <c:forEach var="videos" items="${videoList}">
                                            <c:if test = "${videos.userId==playlist.userId}">
                                                     <tr>
@@ -65,12 +66,11 @@
                                                     </tr>
                                            </c:if>
                                     </c:forEach>
-                            </tbody>
-                    </table>
-            </c:forEach>
+
+            </c:forEach></table>
 
         </td>
-    </tr>
+</tr>
 </table>
 </body>
 </html>

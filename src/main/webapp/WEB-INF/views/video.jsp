@@ -7,12 +7,13 @@
 <head>
     <link href="css/style.css"   rel="stylesheet">
     <div th:replace="/header :: header-css"/>
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-color:#EEEEEE;">
 <video width="320" height="240" controls>
-    <source src= "${MP4_FILE}" type="video/mp4">
-    Your browser does not support the video tag.
+   <%-- <source src= "${MP4_FILE}" type="video/mp4">--%>
+<p>Comment page</p>
 </video>
 </body>
 </html>
